@@ -11,3 +11,4 @@ Knjižnice, ki jih lahko preizkusiva:
 - numpy (obdelava podatkov)
 - scikit-learn (strojno učenje ter ekstrahiranje atributov iz besedila)
 
+Main todos:
