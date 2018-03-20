@@ -8,4 +8,4 @@ Knjižnice, ki jih lahko preizkusiva:
 - pylint
 - mccabe
 - numpy (obdelava podatkov)
-- scipy (strojno učenje ter ekstrahiranje atributov)
+- scikit-learn (strojno učenje ter ekstrahiranje atributov)
