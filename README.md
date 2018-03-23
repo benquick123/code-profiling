@@ -12,4 +12,7 @@ Knjižnice, ki jih lahko preizkusiva:
 - scikit-learn (strojno učenje ter ekstrahiranje atributov iz besedila)
 
 Main todos:
-nimaveze
+- počisti kodo unittestov
+- konstrukcija ast dreves
+- kosntrukcija ast atributov
+- konstrukcija leksikalnih & oblikovnih atributov
