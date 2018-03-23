@@ -12,3 +12,4 @@ Knjižnice, ki jih lahko preizkusiva:
 - scikit-learn (strojno učenje ter ekstrahiranje atributov iz besedila)
 
 Main todos:
+nimaveze
