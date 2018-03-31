@@ -4,13 +4,14 @@ import ast
 def read_file(filename):
     f = open(filename, "r", encoding="utf-8")
     s = f.read()
-    s = "2 + 4"
     return s
 
 
 def build_ast(file_string):
     tree = ast.parse(file_string)
     print(tree)
+    for node in ast.walk(tree):
+        print(node)
     input()
 
 
