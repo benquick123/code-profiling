@@ -9,7 +9,7 @@ Knjižnice, ki jih lahko preizkusiva:
 - numpy (obdelava podatkov)
 - scikit-learn (strojno učenje ter ekstrahiranje atributov iz besedila)
 
-Kaj je novega v zadnjem commitu:
+Kaj je novega v <b>31.3.2018</b> commitu:
 - Demšarjev batch-2
 - Ta README
 
@@ -52,14 +52,14 @@ Predlagam, da atribute konstruirava po Dauber et al. (2017), kjer so razdeljeni 
 | Feature | Definition | Count |
 | ------- | ---------- | ----- |
 | *MaxDepthASTNode* | Maximum depth of an AST node | 1 |
-| ASTNodeBigramsTF | Term frequency AST node bigrams | dynamic* |
+| *ASTNodeBigramsTF* | Term frequency AST node bigrams | dynamic* |
 | *ASTNodeTypesTF* | Term frequency of 58 possible AST node type excluding leaves | 58 |
 | ASTNodeTypesTFIDF | Term frequency inverse document frequency of 58 possible AST node type excluding leaves | 58 |
 | *ASTNodeTypeAvgDep* | Average depth of 58 possible AST node types excluding leaves | 58 |
 | cppKeywords | Term frequency of 84 C++ keywords | 84 |
-| CodeInASTLeavesTF | Term frequency of code unigrams in AST leaves | dynamic** |
+| *CodeInASTLeavesTF* | Term frequency of code unigrams in AST leaves | dynamic** |
 | CodeInASTLeaves TFIDF | Term frequency inverse document frequency of code unigrams in AST leaves | dynamic** |
-| CodeInASTLeaves AvgDep | Average depth of code unigrams in AST leaves | dynamic** |
+| *CodeInASTLeaves AvgDep* | Average depth of code unigrams in AST leaves | dynamic** |
 
 Nadaljni koraki, ki bi jih ubral, bi šli od brisanja unittestov iz batch-2, in nato do konstrukcije nabora zgordnjih atributov.
 V ta namen pripenjam nekaj uporabnih povezav:
@@ -85,3 +85,9 @@ Za referenco, povsem končna oblika podatkov, ki jo bova dala klasifikatorju, je
 
 S tem, kako bova združevala atribute posameznih dokumentov, da dobiva boljšo reprezentacijo posameznikov se zaenkrat še nebi obremenjeval, bo pa verjetno šlo na podoben način kot so 
 to storili Dauber et al (2017).
+
+<b> UPDATE 1.4.2018 </b>
+
+Torej, možno je računanje atributov na nivoju posameznih .py datotek. Kar je še ostalo so TF-IDF vrednosti ter štetje 
+Pythonovih ključnih besed (if, else, for, etc.). Prvo bom dokončal, ko bo napisana koda za računanje atributov vseh datotek,
+drugo pa bi raje implementiral na nivoju stringov in ne AST dreves.  

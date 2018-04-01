@@ -14,9 +14,8 @@ class ASTListener (ast.NodeVisitor):
     curr_level = 0
     curr_parent = None
     max_depth_ast_node = 0
-    ast_node_bigrams_terms_set = set()
-    ast_node_bigrams_terms = []
-    ast_node_bigrams_counts = []
+
+    ast_node_bigrams_counts = dict()
 
     ast_node_types_counts = dict()
     ast_node_types_tfidf = dict()
@@ -54,30 +53,51 @@ class ASTListener (ast.NodeVisitor):
             code = ast.dump(node).split("(")[1].replace(")", "")
             if len(code) == 0:
                 code = ast.dump(node).replace("()", "")
-            print(code)
 
-        """print(keyword.kwlist)
-        if isinstance(node, ast.If):
-            print(node.value)"""
+            if code not in self.code_in_ast_leaves_terms_counts:
+                self.code_in_ast_leaves_terms_counts[code] = 1
+                self.code_in_ast_leaves_avg_dep[code] = [node.level]
+            else:
+                self.code_in_ast_leaves_terms_counts[code] += 1
+                self.code_in_ast_leaves_avg_dep[code].append(node.level)
 
+
+        prev_parent = self.curr_parent
+        self.curr_parent = node
+
+        bigram = "None" if prev_parent is None else str(prev_parent.__class__).split("_ast.")[-1][:-2]
+        bigram += "_" + str(self.curr_parent.__class__).split("_ast.")[-1][:-2]
+        if bigram not in self.ast_node_bigrams_counts:
+            self.ast_node_bigrams_counts[bigram] = 1
+        else:
+            self.ast_node_bigrams_counts[bigram] += 1
 
         self.generic_visit(node)
+        self.curr_parent = prev_parent
         self.curr_level -= 1
 
     def finish(self):
+        print("Max depth:", self.max_depth_ast_node)
+
+        print("Node bigrams:", self.ast_node_bigrams_counts)
+
         print("Types count:", self.ast_node_types_counts)
         for key in self.ast_node_type_avg_dep.keys():
             self.ast_node_type_avg_dep[key] = np.mean(self.ast_node_type_avg_dep[key])
         print("Avg node depth:", self.ast_node_type_avg_dep)
-        print("Max depth:", self.max_depth_ast_node)
+
+        print("Leaf counts:", self.code_in_ast_leaves_terms_counts)
+        for key in self.code_in_ast_leaves_avg_dep.keys():
+            self.code_in_ast_leaves_avg_dep[key] = np.mean(self.code_in_ast_leaves_avg_dep[key])
+        print("Avg leaf depth:", self.code_in_ast_leaves_avg_dep)
 
     def get_attrs(self):
         return None
 
 
-# tree = build_tree_from_file("C:/Users/jonat/Documents/School/Uvod v raziskovanje 2/code-profiling/code/batch-1/vse-naloge-brez-testov/" + "DN3-M-1.py")
-tree = ast.parse("if a == False:"
-                 "    a = 4 + 2")
+tree = build_tree_from_file("C:/Users/jonat/Documents/School/Uvod v raziskovanje 2/code-profiling/code/batch-1/vse-naloge-brez-testov/" + "DN3-M-1.py")
+# tree = ast.parse("if a == False:"
+#                 "    a = 4 + 2")
 ast_listener = ASTListener()
 ast_listener.visit(tree)
 ast_listener.finish()
