@@ -51,11 +51,11 @@ Predlagam, da atribute konstruirava po Dauber et al. (2017), kjer so razdeljeni 
 
 | Feature | Definition | Count |
 | ------- | ---------- | ----- |
-| MaxDepthASTNode | Maximum depth of an AST node | 1 | 
+| *MaxDepthASTNode* | Maximum depth of an AST node | 1 |
 | ASTNodeBigramsTF | Term frequency AST node bigrams | dynamic* |
-| ASTNodeTypesTF | Term frequency of 58 possible AST node type excluding leaves | 58 |
+| *ASTNodeTypesTF* | Term frequency of 58 possible AST node type excluding leaves | 58 |
 | ASTNodeTypesTFIDF | Term frequency inverse document frequency of 58 possible AST node type excluding leaves | 58 |
-| ASTNodeTypeAvgDep | Average depth of 58 possible AST node types excluding leaves | 58 |
+| *ASTNodeTypeAvgDep* | Average depth of 58 possible AST node types excluding leaves | 58 |
 | cppKeywords | Term frequency of 84 C++ keywords | 84 |
 | CodeInASTLeavesTF | Term frequency of code unigrams in AST leaves | dynamic** |
 | CodeInASTLeaves TFIDF | Term frequency inverse document frequency of code unigrams in AST leaves | dynamic** |
