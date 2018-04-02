@@ -93,4 +93,5 @@ Pythonovih ključnih besed (if, else, for, etc.). Prvo bom dokončal, ko bo napi
 drugo pa bi raje implementiral na nivoju stringov in ne AST dreves.
 
 Glede na to, da imava relativno malo podatkov, predlagam tudi, da bi-grame gradiva na nivoju AST drves (kjer bi predstavljali 
-kombinacije tipov vozlišč) ter same kode, kjer bi ti predstavljali kombinacije uporabljenih besed.  
+kombinacije tipov vozlišč) ter same kode, kjer bi ti predstavljali kombinacije uporabljenih besed. To bi utegnilo precej izboljšati predstavitev
+kode.  
