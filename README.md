@@ -88,7 +88,7 @@ to storili Dauber et al (2017).
 
 <b> UPDATE 1.4.2018 </b>
 
-Torej, možno je računanje atributov na nivoju posameznih .py datotek. Kar je še ostalo so TF-IDF vrednosti ter štetje 
+Torej, možno je računanje AST atributov na nivoju posameznih .py datotek. Kar je še ostalo so TF-IDF vrednosti ter štetje 
 Pythonovih ključnih besed (if, else, for, etc.). Prvo bom dokončal, ko bo napisana koda za računanje atributov vseh datotek,
 drugo pa bi raje implementiral na nivoju stringov in ne AST dreves.
 
