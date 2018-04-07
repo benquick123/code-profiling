@@ -20,21 +20,21 @@ Predlagam, da atribute konstruirava po Dauber et al. (2017), kjer so razdeljeni 
 
 | Feature | Definition | Count |
 | ------- | ---------- | ----- |
-| WordUnigramTF | Term frequency of word unigrams in source code | dynamic* |
-| ln(numkeyword/length) | Log of the number of occurrences of keyword divided by file length in characters, where keyword is one of do, else-if, if, else, switch, for or while | 7 |
+| *WordUnigramTF* | Term frequency of word unigrams in source code | dynamic* |
+| *ln(numkeyword/length)* | Log of the number of occurrences of keyword divided by file length in characters, where keyword is one of do, else-if, if, else, switch, for or while | 7 |
 | ln(numTernary/length) | Log of the number of ternary operators divided by file length in characters | 1 |
-| ln(numTokens/length) | Log of the number of word tokens divided by file length in characters | 1 |
-| ln(numComments/length) | Log of the number of comments divided by file length in characters | 1 |
+| *ln(numTokens/length)* | Log of the number of word tokens divided by file length in characters | 1 |
+| *ln(numComments/length)* | Log of the number of comments divided by file length in characters | 1 |
 | ln(numLiterals/length) | Log of the number of string, character, and numeric literals divided by file length in characters | 1 |
-| ln(numKeywords/length) | Log of the number of unique keywords used divided by file length in characters | 1 |
-| ln(numFunctions/length) | Log of the number of functions divided by file length in characters | 1 |
+| *ln(numKeywords/length)* | Log of the number of unique keywords used divided by file length in characters | 1 |
+| *ln(numFunctions/length)* | Log of the number of functions divided by file length in characters | 1 |
 | ln(numMacros/length) | Log of the number of preprocessor directives divided by file length in characters | 1 |
-| nestingDepth | Highest degree to which control statements and loops are nested within each other | 1 |
+| *nestingDepth* | Highest degree to which control statements and loops are nested within each other | 1 |
 | branchingFactor | Branching factor of the tree formed by converting code blocks of files into nodes | 1 |
 | avgParams | The average number of parameters among all functions | 1 |
 | stdDevNumParams | The standard deviation of the number of parameters among all functions | 1 |
-| avgLineLength | The average length of each line | 1 | 
-| stdDevLineLength | The standard deviation of the character lengths of each line | 1 |
+| *avgLineLength* | The average length of each line | 1 | 
+| *stdDevLineLength* | The standard deviation of the character lengths of each line | 1 |
 
 - <b> LAYOUT FEATURES </b>
 
