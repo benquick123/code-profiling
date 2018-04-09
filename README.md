@@ -95,3 +95,16 @@ drugo pa bi raje implementiral na nivoju stringov in ne AST dreves.
 Glede na to, da imava relativno malo podatkov, predlagam tudi, da bi-grame gradiva na nivoju AST drves (kjer bi predstavljali 
 kombinacije tipov vozlišč) ter same kode, kjer bi ti predstavljali kombinacije uporabljenih besed. To bi utegnilo precej izboljšati predstavitev
 kode.  
+
+<b> UPDATE 9.4.2018 </b>
+
+Prvi rezultati: 87% klasifikacijska točnost ob 88,neki% večinskem razredu. Kaj to pomeni? Da najin klasifikator ne napove 
+še ničesar relevantnega. Ampak recimo, da je vsaj pipeline narejen, kar je pomemben del dela.
+
+Zaenkrat so uporabljeni le AST atributi, kar je tudi možen razlog za slabe rezultate. Glede na to, da programirava
+dva, bi bilo pametno skonstruirati nek enoten zapis podatkov. Kar predlagam so sledeče smernice:
+- matrike se shranjuje v formatu *sparse.cst_matrix()* (https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr_matrix.html)
+- potrebno je poskrbeti, da so vrstice v matrikah enotne ne glede na vrstni red procesiranja in shranjevanja (npr. *set()* 
+ne ohranja vrstnega reda). Predlagam, da to počneva tako, da vrstice sortirava glede na ime datoteke (glej *ast_attribute_builder.py:153*)
+- za shranjevanje in ponovno nalaganje (da ne čakava vsakič, da se sparsa vsa koda) predlagam *pickle* (https://docs.python.org/3/library/pickle.html)
+pri čemer sta pomembna le *object = pickle.load(file)* in *pickle.dump(object, file)*.
