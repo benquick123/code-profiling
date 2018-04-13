@@ -22,14 +22,14 @@ import os
 
 # Vrne število znakov v datoteki (šteje tudi prelome)
 def file_length(file):
-    return sum((len(line)) for line in open(file))
+    return sum((len(line)) for line in open(file, encoding="utf-8"))
 
 # Term frequency of word unigrams in source code
 def word_unigram_tf(file):
     import re
     import collections
     unigrams = collections.defaultdict(int)
-    for line in open(file):
+    for line in open(file, encoding="utf-8"):
         for word in re.split('\W+', line):
             unigrams[word] += 1
     return unigrams
@@ -37,7 +37,7 @@ def word_unigram_tf(file):
 # Number of occurrences of keyword (do, else-if, if, else, switch, for, while)
 def num_keyword(file):
     keywords = {"if": 0, "else:": 0, "elif": 0, "with": 0, "try": 0, "for": 0, "while": 0}
-    for line in open(file):
+    for line in open(file, encoding="utf-8"):
         for word in line.split():
             if word in keywords:
                 keywords[word] += 1
@@ -48,12 +48,12 @@ def num_keyword(file):
 
 # Number of word tokens
 def num_tokens(file):
-    return sum((len(line.split())) for line in open(file))
+    return sum((len(line.split())) for line in open(file, encoding="utf-8"))
 
 # Number of comments
 def num_comments(file):
     comment_count = 0
-    for line in open(file):
+    for line in open(file, encoding="utf-8"):
         for character in line:
             if character == "#":
                 comment_count += 1
@@ -71,7 +71,7 @@ def num_keywords(file):
 # Number of functions
 # Tega pri nalogah najbrž ne bomo rabili, ker je število funkcij že vnaprej dano
 def num_functions(file):
-    return sum("def" in line.split() for line in open(file))
+    return sum("def" in line.split() for line in open(file, encoding="utf-8"))
 
 # ln(numMacros/length)	Log of the number of preprocessor directives divided by file length in characters
 # Tega v Pythonu ne rabimo?
@@ -80,7 +80,7 @@ def num_functions(file):
 #Na to rešitev nisem najbolj ponosen, ampak pomoje naredi svoje
 def nesting_depth(file):
     max_depth = 0
-    for line in open(file):
+    for line in open(file, encoding="utf-8"):
         depth = 0
         for ch in line:
             if ch == " ":
@@ -113,7 +113,7 @@ def sd_line_lenght(file):
 
 # Izpis podatkov
 
-mypath = 'path to directory with files'
+mypath = '../code/batch-1/vse-naloge-brez-testov/'
 
 for file in os.listdir(mypath):
     print(file)
@@ -137,3 +137,4 @@ for file in os.listdir(mypath):
     print(nesting_depth(file))
     print(avg_line_lenght(file))
     print(sd_line_lenght(file))
+    break
