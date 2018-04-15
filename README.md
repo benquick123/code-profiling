@@ -103,7 +103,7 @@ Prvi rezultati: 87% klasifikacijska točnost ob 88,neki% večinskem razredu. Kaj
 
 Zaenkrat so uporabljeni le AST atributi, kar je tudi možen razlog za slabe rezultate. Glede na to, da programirava
 dva, bi bilo pametno skonstruirati nek enoten zapis podatkov. Kar predlagam so sledeče smernice:
-- matrike se shranjuje v formatu *sparse.cst_matrix()* (https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr_matrix.html)
+- matrike se shranjuje v formatu *sparse.csr_matrix()* (https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr_matrix.html)
 - potrebno je poskrbeti, da so vrstice v matrikah enotne ne glede na vrstni red procesiranja in shranjevanja (npr. *set()* 
 ne ohranja vrstnega reda). Predlagam, da to počneva tako, da vrstice sortirava glede na ime datoteke (glej *ast_attribute_builder.py:153*)
 - za shranjevanje in ponovno nalaganje (da ne čakava vsakič, da se sparsa vsa koda) predlagam *pickle* (https://docs.python.org/3/library/pickle.html)
@@ -115,4 +115,6 @@ Dodani so še *layout* atributi, ki pa ne izboljšajo rezultatov. Manjkajo torej
 bo mogoča evalvacija dosedanjega dela.
 
 Reminder: prav tako klasifikator trenutno dela nad posameznimi datotekami, kar pomeni, da morda obstaja prostor za izboljšave
-klasifikacijske točnosti z združevanjem atributov / seštevanjem verjetnosti. Prav tako v rezultate še niso zajete vse datoteke. 
+klasifikacijske točnosti z združevanjem atributov / seštevanjem verjetnosti. Prav tako v rezultate še niso zajete vse datoteke.
+
+Naslednji korak je torej parsanje vse razpoložljive kode in programiranje kode, ki bo ustrezno agregirala primere. 
