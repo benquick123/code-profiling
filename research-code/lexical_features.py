@@ -2,17 +2,17 @@
     Feature	                Definition	Count
 ✓   WordUnigramTF	        Term frequency of word unigrams in source code
 ✓   ln(numkeyword/length)	Log of the number of occurrences of keyword divided by file length in characters, where keyword is one of do, else-if, if, else, switch, for or while
-    ln(numTernary/length)	Log of the number of ternary operators divided by file length in characters
+✓   ln(numTernary/length)	Log of the number of ternary operators divided by file length in characters
 ✓   ln(numTokens/length)	Log of the number of word tokens divided by file length in characters
 ✓   ln(numComments/length)	Log of the number of comments divided by file length in characters
-    ln(numLiterals/length)	Log of the number of string, character, and numeric literals divided by file length in characters
+✓   ln(numLiterals/length)	Log of the number of string, character, and numeric literals divided by file length in characters
 ✓   ln(numKeywords/length)	Log of the number of unique keywords used divided by file length in characters
 ✓   ln(numFunctions/length)	Log of the number of functions divided by file length in characters
-    ln(numMacros/length)	Log of the number of preprocessor directives divided by file length in characters
+    ln(numMacros/length)	Log of the number of preprocessor directives divided by file length in characters       DONT NEED THIS SHIET
 ✓   nestingDepth	        Highest degree to which control statements and loops are nested within each other
-    branchingFactor	        Branching factor of the tree formed by converting code blocks of files into nodes
-    avgParams	            The average number of parameters among all functions
-    stdDevNumParams	        The standard deviation of the number of parameters among all functions
+✓   branchingFactor	        Branching factor of the tree formed by converting code blocks of files into nodes
+✓   avgParams	            The average number of parameters among all functions
+✓   stdDevNumParams	        The standard deviation of the number of parameters among all functions
 ✓   avgLineLength	        The average length of each line
 ✓   stdDevLineLength	    The standard deviation of the character lengths of each line
 """
@@ -45,6 +45,16 @@ def num_keyword(file):
 
 # ln(numTernary/length)	Log of the number of ternary operators divided by file length in characters
 # Ne rabimo
+# Fele: ko že delam, bom implementiral še to. Ne vem, če rabimo, ampak morda so različni ljudje uporabljali različna števila le-teh.
+
+def num_ternary(file):
+    f = open(file, encoding="utf-8")
+    ternary_count = 0
+    for line in file:
+        if "if" in line and "else" in line:
+            ternary_count += 1
+    f.close()
+    return ternary_count
 
 # Number of word tokens
 def num_tokens(file):
@@ -62,6 +72,7 @@ def num_comments(file):
 
 # ln(numLiterals/length)	Log of the number of string, character, and numeric literals divided by file length in characters
 # Python tu ni najbolj prijazen...
+# Fele: DONE
 
 # Number of unique keywords used
 def num_keywords(file):
@@ -93,12 +104,15 @@ def nesting_depth(file):
 
 # Branching factor of the tree formed by converting code blocks of files into nodes
 # Wat is dis?
+# Fele: nevermind, sem implementiral v ast_attribute_builder.py
 
 # avgParams	            The average number of parameters among all functions
 # Tudi tukaj se mi ne zdi smiselno pisat funkcije, glede na nalogo...
+# Fele: pomojem res ni smiselno, but its done anyway
 
 # stdDevNumParams	    The standard deviation of the number of parameters among all functions
 # Enako kot zgoraj
+# Fele: enako kot zgoraj
 
 # The average length of each line
 def avg_line_lenght(file):
@@ -128,6 +142,7 @@ for file in os.listdir(mypath):
     print(num_keyword(file))
 
     # Logs
+    print(log(num_ternary(file) / length))
     print(log(num_tokens(file) / length))
     print(log(num_comments(file) / length))
     print(log(num_keywords(file) / length))

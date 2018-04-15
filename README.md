@@ -22,17 +22,17 @@ Predlagam, da atribute konstruirava po Dauber et al. (2017), kjer so razdeljeni 
 | ------- | ---------- | ----- |
 | *WordUnigramTF* | Term frequency of word unigrams in source code | dynamic* |
 | *ln(numkeyword/length)* | Log of the number of occurrences of keyword divided by file length in characters, where keyword is one of do, else-if, if, else, switch, for or while | 7 |
-| ln(numTernary/length) | Log of the number of ternary operators divided by file length in characters | 1 |
+| *ln(numTernary/length)* | Log of the number of ternary operators divided by file length in characters | 1 |
 | *ln(numTokens/length)* | Log of the number of word tokens divided by file length in characters | 1 |
 | *ln(numComments/length)* | Log of the number of comments divided by file length in characters | 1 |
-| ln(numLiterals/length) | Log of the number of string, character, and numeric literals divided by file length in characters | 1 |
+| *ln(numLiterals/length)* | Log of the number of string, character, and numeric literals divided by file length in characters | 1 |
 | *ln(numKeywords/length)* | Log of the number of unique keywords used divided by file length in characters | 1 |
 | *ln(numFunctions/length)* | Log of the number of functions divided by file length in characters | 1 |
 | ln(numMacros/length) | Log of the number of preprocessor directives divided by file length in characters | 1 |
 | *nestingDepth* | Highest degree to which control statements and loops are nested within each other | 1 |
-| branchingFactor | Branching factor of the tree formed by converting code blocks of files into nodes | 1 |
-| avgParams | The average number of parameters among all functions | 1 |
-| stdDevNumParams | The standard deviation of the number of parameters among all functions | 1 |
+| *branchingFactor* | Branching factor of the tree formed by converting code blocks of files into nodes | 1 |
+| *avgParams* | The average number of parameters among all functions | 1 |
+| *stdDevNumParams* | The standard deviation of the number of parameters among all functions | 1 |
 | *avgLineLength* | The average length of each line | 1 | 
 | *stdDevLineLength* | The standard deviation of the character lengths of each line | 1 |
 
@@ -40,12 +40,12 @@ Predlagam, da atribute konstruirava po Dauber et al. (2017), kjer so razdeljeni 
 
 | Feature | Definition | Count |
 | ------- | ---------- | ----- |
-| ln(numTabs/length) | Log of the number of tab characters divided by file length in characters | 1 |
-| ln(numSpaces/length) | Log of the number of space characters divided by file length in characters | 1 |
-| ln(numEmptyLines/length) | Log of the number of empty lines divided by file length in characters, excluding leading and trailing lines between lines of text | 1 |
-| whiteSpaceRatio | The ratio between the number of whitespace characters (spaces, tabs, and newlines) and non-whitespace characters | 1 |
+| *ln(numTabs/length)* | Log of the number of tab characters divided by file length in characters | 1 |
+| *ln(numSpaces/length)* | Log of the number of space characters divided by file length in characters | 1 |
+| *ln(numEmptyLines/length)* | Log of the number of empty lines divided by file length in characters, excluding leading and trailing lines between lines of text | 1 |
+| *whiteSpaceRatio* | The ratio between the number of whitespace characters (spaces, tabs, and newlines) and non-whitespace characters | 1 |
 | newLineBefore OpenBrace | A boolean representing whether the majority of code-block braces are preceded by a newline character | 1 |
-| tabsLeadLines | A boolean representing whether the majority of indented lines begin with spaces or tabs | 1 |
+| *tabsLeadLines* | A boolean representing whether the majority of indented lines begin with spaces or tabs | 1 |
 
 - <b> SYNTACTIC FEATURES </b>
 
@@ -54,11 +54,11 @@ Predlagam, da atribute konstruirava po Dauber et al. (2017), kjer so razdeljeni 
 | *MaxDepthASTNode* | Maximum depth of an AST node | 1 |
 | *ASTNodeBigramsTF* | Term frequency AST node bigrams | dynamic* |
 | *ASTNodeTypesTF* | Term frequency of 58 possible AST node type excluding leaves | 58 |
-| ASTNodeTypesTFIDF | Term frequency inverse document frequency of 58 possible AST node type excluding leaves | 58 |
+| *ASTNodeTypesTFIDF* | Term frequency inverse document frequency of 58 possible AST node type excluding leaves | 58 |
 | *ASTNodeTypeAvgDep* | Average depth of 58 possible AST node types excluding leaves | 58 |
-| cppKeywords | Term frequency of 84 C++ keywords | 84 |
+| *cppKeywords* | Term frequency of 84 C++ keywords | 84 |
 | *CodeInASTLeavesTF* | Term frequency of code unigrams in AST leaves | dynamic** |
-| CodeInASTLeaves TFIDF | Term frequency inverse document frequency of code unigrams in AST leaves | dynamic** |
+| *CodeInASTLeaves TFIDF* | Term frequency inverse document frequency of code unigrams in AST leaves | dynamic** |
 | *CodeInASTLeaves AvgDep* | Average depth of code unigrams in AST leaves | dynamic** |
 
 Nadaljni koraki, ki bi jih ubral, bi šli od brisanja unittestov iz batch-2, in nato do konstrukcije nabora zgordnjih atributov.
@@ -108,3 +108,8 @@ dva, bi bilo pametno skonstruirati nek enoten zapis podatkov. Kar predlagam so s
 ne ohranja vrstnega reda). Predlagam, da to počneva tako, da vrstice sortirava glede na ime datoteke (glej *ast_attribute_builder.py:153*)
 - za shranjevanje in ponovno nalaganje (da ne čakava vsakič, da se sparsa vsa koda) predlagam *pickle* (https://docs.python.org/3/library/pickle.html)
 pri čemer sta pomembna le *object = pickle.load(file)* in *pickle.dump(object, file)*.
+
+<b> UPDATE 16.4.2018 </b>
+
+Dodani so še *layout* atributi, ki pa ne izboljšajo rezultatov. Manjkajo torej le še leksikalni atributi, nato pa 
+bo mogoča evalvacija dosedanjega dela.
