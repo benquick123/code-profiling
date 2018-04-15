@@ -113,3 +113,6 @@ pri čemer sta pomembna le *object = pickle.load(file)* in *pickle.dump(object, 
 
 Dodani so še *layout* atributi, ki pa ne izboljšajo rezultatov. Manjkajo torej le še leksikalni atributi, nato pa 
 bo mogoča evalvacija dosedanjega dela.
+
+Reminder: prav tako klasifikator trenutno dela nad posameznimi datotekami, kar pomeni, da morda obstaja prostor za izboljšave
+klasifikacijske točnosti z združevanjem atributov / seštevanjem verjetnosti. Prav tako v rezultate še niso zajete vse datoteke. 
