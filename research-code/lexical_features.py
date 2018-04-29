@@ -18,6 +18,9 @@
 """
 
 from math import log
+from statistics import mean, stdev
+import re
+import collections
 import os
 import pickle
 from scipy import sparse
@@ -28,10 +31,18 @@ def file_length(file):
     return sum((len(line)) for line in open(file, encoding="utf-8"))
 
 # Term frequency of word unigrams in source code
-def word_unigram_tf(file):
-    import re
-    import collections
+
+# Prva verzija - samo lastni unigrami
+def word_unigram_tf_old(file):
     unigrams = collections.defaultdict(int)
+    for line in open(file, encoding="utf-8"):
+        for word in re.split('\W+', line):
+            unigrams[word] += 1
+    return unigrams
+
+# Druga verzija - z vsemi unigrami
+def word_unigram_tf(file, unigram_dict):
+    unigrams = unigram_dict
     for line in open(file, encoding="utf-8"):
         for word in re.split('\W+', line):
             unigrams[word] += 1
@@ -119,13 +130,11 @@ def nesting_depth(file):
 
 # The average length of each line
 def avg_line_lenght(file):
-    from statistics import mean
     lines = [len(line) for line in open(file, encoding="utf-8")]
     return mean(lines) if len(lines) > 0 else 0
 
 # The standard deviation of the character lengths of each line
 def sd_line_lenght(file):
-    from statistics import stdev
     lines = [len(line) for line in open(file, encoding="utf-8")]
     return stdev(lines) if len(lines) > 1 else 0
 
@@ -141,6 +150,13 @@ def pickle_save(X):
 path = '../code/batch-1/vse-naloge-brez-testov/'
 attrs = []
 
+all_unigrams = {}
+for filename in os.listdir(path):
+    file = path + filename
+    for line in open(file, encoding="utf-8"):
+        for word in re.split('\W+', line):
+            all_unigrams[word] = 0
+
 for filename in os.listdir(path):
 
     file = path + filename
@@ -149,7 +165,7 @@ for filename in os.listdir(path):
     length = file_length(file)
 
     # Dicts
-    unigrams = dict(word_unigram_tf(file))
+    unigrams = dict(word_unigram_tf(file, all_unigrams))
     keyword = num_keyword(file)
 
     # Logs
@@ -164,8 +180,12 @@ for filename in os.listdir(path):
     avglinelength = avg_line_lenght(file)
     sdlinelength = sd_line_lenght(file)
 
-    attrs.append((filename, [ternaries, tokens, comments, keywords, functions, nestingdepth, avglinelength, sdlinelength]))
-    # ! manjkata "word_unigram_tf" in "num_keyword"
+    #Dodajanje v atribute
+    attrs.append((filename,
+                  [ternaries, tokens, comments, keywords, functions, nestingdepth, avglinelength, sdlinelength] +
+                  [log(keyword[key] / length) if keyword[key] > 0 else 0 for key in keyword] +
+                  [unigrams[key] for key in unigrams]))
+
 
 attrs = sorted(attrs, key=lambda x: x[0])
 X = None

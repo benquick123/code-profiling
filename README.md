@@ -121,4 +121,4 @@ Naslednji korak je torej parsanje vse razpoložljive kode in programiranje kode,
 
 <b> UPDATE 29.4.2018 </b>
 
-Dodan je še pickle za leksikalne lastnosti, ampak v njem manjkata še slovarja unigramov in ključnih besed.
+Zdaj se vse leksikalne lastnosti shranjujejo v pickle.
