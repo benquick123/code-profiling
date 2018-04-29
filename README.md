@@ -117,4 +117,8 @@ bo mogoča evalvacija dosedanjega dela.
 Reminder: prav tako klasifikator trenutno dela nad posameznimi datotekami, kar pomeni, da morda obstaja prostor za izboljšave
 klasifikacijske točnosti z združevanjem atributov / seštevanjem verjetnosti. Prav tako v rezultate še niso zajete vse datoteke.
 
-Naslednji korak je torej parsanje vse razpoložljive kode in programiranje kode, ki bo ustrezno agregirala primere. 
+Naslednji korak je torej parsanje vse razpoložljive kode in programiranje kode, ki bo ustrezno agregirala primere.
+
+<b> UPDATE 29.4.2018 </b>
+
+Dodan je še pickle za leksikalne lastnosti, ampak v njem manjkata še slovarja unigramov in ključnih besed.

@@ -19,6 +19,9 @@
 
 from math import log
 import os
+import pickle
+from scipy import sparse
+
 
 # Vrne število znakov v datoteki (šteje tudi prelome)
 def file_length(file):
@@ -117,39 +120,59 @@ def nesting_depth(file):
 # The average length of each line
 def avg_line_lenght(file):
     from statistics import mean
-    return mean((len(line) for line in open(file)))
+    lines = [len(line) for line in open(file, encoding="utf-8")]
+    return mean(lines) if len(lines) > 0 else 0
 
 # The standard deviation of the character lengths of each line
 def sd_line_lenght(file):
     from statistics import stdev
-    return stdev((len(line) for line in open(file)))
+    lines = [len(line) for line in open(file, encoding="utf-8")]
+    return stdev(lines) if len(lines) > 1 else 0
 
 
-# Izpis podatkov
+# Zapis podatkov
 
-mypath = '../code/batch-1/vse-naloge-brez-testov/'
+def pickle_save(X):
+    path = "../research-code/pickle-data/"
+    f = open(path + "batch-1-lexical-X.pickle", "wb")
+    pickle.dump(X, f)
+    f.close()
 
-for file in os.listdir(mypath):
-    print(file)
+path = '../code/batch-1/vse-naloge-brez-testov/'
+attrs = []
 
-    file = mypath + file
+for filename in os.listdir(path):
+
+    file = path + filename
 
     # Length
     length = file_length(file)
 
     # Dicts
-    print(dict(word_unigram_tf(file)))
-    print(num_keyword(file))
+    unigrams = dict(word_unigram_tf(file))
+    keyword = num_keyword(file)
 
     # Logs
-    print(log(num_ternary(file) / length))
-    print(log(num_tokens(file) / length))
-    print(log(num_comments(file) / length))
-    print(log(num_keywords(file) / length))
-    print(log(num_functions(file) / length))
+    ternaries = log(num_ternary(file) / length) if num_ternary(file) > 0 else 0
+    tokens = log(num_tokens(file) / length) if num_tokens(file) > 0 else 0
+    comments = log(num_comments(file) / length) if num_comments(file) > 0 else 0
+    keywords = log(num_keywords(file) / length) if num_keywords(file) > 0 else 0
+    functions = log(num_functions(file) / length) if num_functions(file) > 0 else 0
 
     # Misc
-    print(nesting_depth(file))
-    print(avg_line_lenght(file))
-    print(sd_line_lenght(file))
-    break
+    nestingdepth = nesting_depth(file)
+    avglinelength = avg_line_lenght(file)
+    sdlinelength = sd_line_lenght(file)
+
+    attrs.append((filename, [ternaries, tokens, comments, keywords, functions, nestingdepth, avglinelength, sdlinelength]))
+    # ! manjkata "word_unigram_tf" in "num_keyword"
+
+attrs = sorted(attrs, key=lambda x: x[0])
+X = None
+for filename, attributes in attrs:
+    if X is None:
+        X = sparse.csr_matrix(attributes)
+    else:
+        X = sparse.vstack([X, attributes])
+
+pickle_save(X)
