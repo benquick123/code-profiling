@@ -152,13 +152,13 @@ def file_length(file):
 
 def pickle_save(X, Y, groups):
     path = "../research-code/pickle-data/"
-    f = open(path + "batch-1-ast-X.pickle", "wb")
+    f = open(path + "batch-2-ast-X.pickle", "wb")
     pickle.dump(X, f)
     f.close()
-    f = open(path + "batch-1-ast-Y.pickle", "wb")
+    f = open(path + "batch-2-ast-Y.pickle", "wb")
     pickle.dump(Y, f)
     f.close()
-    f = open(path + "batch-1-ast-groups.pickle", "wb")
+    f = open(path + "batch-2-ast-groups.pickle", "wb")
     pickle.dump(groups, f)
     f.close()
 
@@ -169,9 +169,9 @@ node_types_keys = set()
 leaf_terms_keys = set()
 lenghts = []
 
-for filename in os.listdir("../code/batch-1/vse-naloge-brez-testov"):
-    lenghts.append(file_length("../code/batch-1/vse-naloge-brez-testov/" + filename))
-    code_attrs = create_attrs("../code/batch-1/vse-naloge-brez-testov/" + filename)
+for filename in os.listdir("../code/batch-2/vse-naloge-brez-testov"):
+    lenghts.append(file_length("../code/batch-2/vse-naloge-brez-testov/" + filename))
+    code_attrs = create_attrs("../code/batch-2/vse-naloge-brez-testov/" + filename)
     node_bigrams_keys = node_bigrams_keys.union(code_attrs[2])
     node_types_keys = node_types_keys.union(code_attrs[3])
     leaf_terms_keys = leaf_terms_keys.union(code_attrs[5])

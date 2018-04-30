@@ -6,12 +6,12 @@ import pickle
 
 def pickle_save(X):
     path = "../research-code/pickle-data/"
-    f = open(path + "batch-1-layout-X.pickle", "wb")
+    f = open(path + "batch-2-layout-X.pickle", "wb")
     pickle.dump(X, f)
     f.close()
 
 
-path = '../code/batch-1/vse-naloge-brez-testov/'
+path = '../code/batch-2/vse-naloge-brez-testov/'
 attrs = []
 
 for filename in os.listdir(path):

@@ -122,3 +122,11 @@ Naslednji korak je torej parsanje vse razpoložljive kode in programiranje kode,
 <b> UPDATE 29.4.2018 </b>
 
 Zdaj se vse leksikalne lastnosti shranjujejo v pickle.
+
+<b> UPDATE 30.4.2018 </b>
+
+Doseženi je 91,6% klasifikacijska točnost ob 89,03% večinskem razredu. Dodani so bili leksikalni atributi 
+ter uporabljen batch-2. Nadaljni koraki vključujejo analizo rezultatov ter združevanje rezultatov istih
+avtorjev za dosego boljše klasifikacijske točnosti.
+
+Dejstvo, da so dobljeni rezultati boljši od velikosti večinskega razreda so obetavni.  

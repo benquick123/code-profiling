@@ -24,6 +24,7 @@ import collections
 import os
 import pickle
 from scipy import sparse
+import numpy as np
 
 
 # Vrne število znakov v datoteki (šteje tudi prelome)
@@ -143,11 +144,11 @@ def sd_line_lenght(file):
 
 def pickle_save(X):
     path = "../research-code/pickle-data/"
-    f = open(path + "batch-1-lexical-X.pickle", "wb")
+    f = open(path + "batch-2-lexical-X.pickle", "wb")
     pickle.dump(X, f)
     f.close()
 
-path = '../code/batch-1/vse-naloge-brez-testov/'
+path = '../code/batch-2/vse-naloge-brez-testov/'
 attrs = []
 
 all_unigrams = {}
@@ -165,7 +166,10 @@ for filename in os.listdir(path):
     length = file_length(file)
 
     # Dicts
+    # sry, ampak mislim, da tule nekaj ne deluje pravilno. Vrednosti v končni matriki so namreč malo out there.
+    # v izi bom rewriteal, da vidim, kaj dobim jaz.
     unigrams = dict(word_unigram_tf(file, all_unigrams))
+    # unigrams = word_unigram_tf_old(file)
     keyword = num_keyword(file)
 
     # Logs
@@ -181,15 +185,29 @@ for filename in os.listdir(path):
     sdlinelength = sd_line_lenght(file)
 
     #Dodajanje v atribute
-    attrs.append((filename,
+    """attrs.append((filename,
                   [ternaries, tokens, comments, keywords, functions, nestingdepth, avglinelength, sdlinelength] +
                   [log(keyword[key] / length) if keyword[key] > 0 else 0 for key in keyword] +
-                  [unigrams[key] for key in unigrams]))
+                  [unigrams[key] for key in unigrams]))"""
+    attrs.append((filename,
+                  [ternaries, tokens, comments, keywords, functions, nestingdepth, avglinelength, sdlinelength] +
+                  [log(keyword[key] / length) if keyword[key] > 0 else 0 for key in keyword],
+                  unigrams))
 
+
+unigrams_keys = set()
+
+for file, attributes, unigrams in attrs:
+    unigrams_keys = unigrams_keys.union(unigrams.keys())
+unigrams_keys = {unigram: i for unigram, i in zip(unigrams_keys, range(len(unigrams_keys)))}
 
 attrs = sorted(attrs, key=lambda x: x[0])
 X = None
-for filename, attributes in attrs:
+for filename, attributes, unigrams in attrs:
+    unigrams_new = np.zeros(len(unigrams_keys))
+    for unigram, num in unigrams.items():
+        unigrams_new[unigrams_keys[unigram]] = num
+    attributes = attributes + unigrams_new.tolist()
     if X is None:
         X = sparse.csr_matrix(attributes)
     else:

@@ -3,7 +3,7 @@ def preobrni(stevila):
     stevila2 = stevila[index:] + stevila[:index]
     return stevila2
 
-def preobrni2(stevila, stevilo): # preobrni pot glede na podano ötevilo
+def preobrni2(stevila, stevilo): # preobrni pot glede na podano ≈°tevilo
     index = stevila.index(stevilo)
     stevila2 = stevila[index:] + stevila[:index]
     return stevila2
@@ -28,7 +28,7 @@ def preberi(ime_datoteke):
 def mozna_pot(pot, zemljevid):
     if len(zemljevid[pot[0]]) != 1: # prva ...
         return False
-    if len(zemljevid[pot[-1]]) != 1: # ... in zadnja morata biti krajiö&#269;i (samo ena pot vodi iz te to&#269;ke)
+    if len(zemljevid[pot[-1]]) != 1: # ... in zadnja morata biti kraji≈°&#269;i (samo ena pot vodi iz te to&#269;ke)
         return False
 
     if len(pot) == 2: # vmes ni povezave

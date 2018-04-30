@@ -1,39 +1,39 @@
-# Tu piöite svoje funkcije:
+# Tu pi≈°ite svoje funkcije:
 from math import *
 
 kraji = [
-    ('Breûice', 68.66, 7.04), ('Lenart', 85.20, 78.75), ('RateËe', -65.04, 70.04),
-    ('Ljutomer', 111.26, 71.82), ('Rogaöka Slatina', 71.00, 42.00), ('Ribnica', 7.10, -10.50),
+    ('Bre≈æice', 68.66, 7.04), ('Lenart', 85.20, 78.75), ('Rateƒçe', -65.04, 70.04),
+    ('Ljutomer', 111.26, 71.82), ('Roga≈°ka Slatina', 71.00, 42.00), ('Ribnica', 7.10, -10.50),
     ('Dutovlje', -56.80, -6.93), ('Lokve', -57.94, 19.32), ('Vinica', 43.81, -38.43),
-    ('Brtonigla', -71.00, -47.25), ('Kanal', -71.00, 26.25), ('»rnomelj', 39.05, -27.93),
-    ('Trbovlje', 29.61, 35.07), ('Beltinci', 114.81, 80.54), ('Domûale', -2.34, 31.50),
-    ('Hodoö', 120.70, 105.00), ('äkofja Loka', -23.64, 35.07), ('Velike LaöËe', 0.00, 0.00),
-    ('Velenje', 33.16, 54.29), ('äoötanj', 29.61, 57.75), ('Laöko', 42.60, 33.29),
+    ('Brtonigla', -71.00, -47.25), ('Kanal', -71.00, 26.25), ('ƒårnomelj', 39.05, -27.93),
+    ('Trbovlje', 29.61, 35.07), ('Beltinci', 114.81, 80.54), ('Dom≈æale', -2.34, 31.50),
+    ('Hodo≈°', 120.70, 105.00), ('≈†kofja Loka', -23.64, 35.07), ('Velike La≈°ƒçe', 0.00, 0.00),
+    ('Velenje', 33.16, 54.29), ('≈†o≈°tanj', 29.61, 57.75), ('La≈°ko', 42.60, 33.29),
     ('Postojna', -29.54, -5.25), ('Ilirska Bistrica', -27.19, -27.93),
-    ('Radenci', 100.61, 84.00), ('»rna', 15.41, 66.57), ('RadeËe', 39.05, 24.57),
+    ('Radenci', 100.61, 84.00), ('ƒårna', 15.41, 66.57), ('Radeƒçe', 39.05, 24.57),
     ('Vitanje', 47.36, 57.75), ('Bled', -37.84, 56.07), ('Tolmin', -63.90, 36.75),
     ('Miren', -72.14, 7.04), ('Ptuj', 87.61, 61.32), ('Gornja Radgona', 97.06, 89.25),
     ('Plave', -73.34, 21.00), ('Novo mesto', 37.91, -3.47), ('Bovec', -76.89, 52.50),
-    ('Nova Gorica', -69.79, 12.29), ('Kröko', 60.35, 14.07), ('Cerknica', -18.89, -3.47),
-    ('Slovenska Bistrica', 66.31, 57.75), ('Anhovo', -72.14, 22.78), ('Ormoû', 107.71, 61.32),
-    ('äkofije', -59.14, -27.93), ('»epovan', -60.35, 22.78), ('Murska Sobota', 108.91, 87.57),
+    ('Nova Gorica', -69.79, 12.29), ('Kr≈°ko', 60.35, 14.07), ('Cerknica', -18.89, -3.47),
+    ('Slovenska Bistrica', 66.31, 57.75), ('Anhovo', -72.14, 22.78), ('Ormo≈æ', 107.71, 61.32),
+    ('≈†kofije', -59.14, -27.93), ('ƒåepovan', -60.35, 22.78), ('Murska Sobota', 108.91, 87.57),
     ('Ljubljana', -8.24, 22.78), ('Idrija', -43.74, 17.54), ('Radlje ob Dravi', 41.46, 82.32),
-    ('éalec', 37.91, 43.79), ('Mojstrana', -49.70, 64.79),
+    ('≈Ωalec', 37.91, 43.79), ('Mojstrana', -49.70, 64.79),
     ('Log pod Mangartom', -73.34, 59.54), ('Podkoren', -62.69, 70.04),
-    ('KoËevje', 16.61, -21.00), ('SoËa', -69.79, 52.50), ('AjdovöËina', -53.25, 5.25),
-    ('Bohinjska Bistrica', -48.49, 47.25), ('TrûiË', -22.44, 56.07), ('Piran', -75.69, -31.50),
+    ('Koƒçevje', 16.61, -21.00), ('Soƒça', -69.79, 52.50), ('Ajdov≈°ƒçina', -53.25, 5.25),
+    ('Bohinjska Bistrica', -48.49, 47.25), ('Tr≈æiƒç', -22.44, 56.07), ('Piran', -75.69, -31.50),
     ('Kranj', -20.09, 43.79), ('Kranjska Gora', -60.35, 68.25), ('Izola', -68.59, -31.50),
-    ('Radovljica', -31.95, 54.29), ('Gornji Grad', 13.06, 49.03), ('äentjur', 54.46, 40.32),
+    ('Radovljica', -31.95, 54.29), ('Gornji Grad', 13.06, 49.03), ('≈†entjur', 54.46, 40.32),
     ('Koper', -63.90, -29.72), ('Celje', 45.01, 42.00), ('Mislinja', 42.60, 66.57),
-    ('Metlika', 48.56, -19.21), ('éaga', -81.65, 49.03), ('Komen', -63.90, -1.68),
-    ('éuûemberk', 21.30, 0.00), ('Pesnica', 74.55, 80.54), ('Vrhnika', -23.64, 14.07),
+    ('Metlika', 48.56, -19.21), ('≈Ωaga', -81.65, 49.03), ('Komen', -63.90, -1.68),
+    ('≈Ωu≈æemberk', 21.30, 0.00), ('Pesnica', 74.55, 80.54), ('Vrhnika', -23.64, 14.07),
     ('Dravograd', 28.40, 78.75), ('Kamnik', -1.14, 40.32), ('Jesenice', -40.19, 64.79),
-    ('Kobarid', -74.55, 43.79), ('Portoroû', -73.34, -33.18), ('Muta', 37.91, 82.32),
-    ('Seûana', -54.39, -13.96), ('Vipava', -47.29, 1.79), ('Maribor', 72.21, 75.28),
+    ('Kobarid', -74.55, 43.79), ('Portoro≈æ', -73.34, -33.18), ('Muta', 37.91, 82.32),
+    ('Se≈æana', -54.39, -13.96), ('Vipava', -47.29, 1.79), ('Maribor', 72.21, 75.28),
     ('Slovenj Gradec', 31.95, 71.82), ('Litija', 14.20, 22.78), ('Na Logu', -62.69, 57.75),
-    ('Stara Fuûina', -52.04, 47.25), ('Motovun', -56.80, -52.50), ('Pragersko', 73.41, 57.75),
-    ('Most na SoËi', -63.90, 33.29), ('Brestanica', 60.35, 15.75),
-    ('Savudrija', -80.44, -34.96), ('Sodraûica', 0.00, -6.93),
+    ('Stara Fu≈æina', -52.04, 47.25), ('Motovun', -56.80, -52.50), ('Pragersko', 73.41, 57.75),
+    ('Most na Soƒçi', -63.90, 33.29), ('Brestanica', 60.35, 15.75),
+    ('Savudrija', -80.44, -34.96), ('Sodra≈æica', 0.00, -6.93),
 ]
 
 
@@ -128,32 +128,32 @@ import unittest
 
 class TestKraji(unittest.TestCase):
     vsi_kraji = [
-        ('Breûice', 68.66, 7.04),
+        ('Bre≈æice', 68.66, 7.04),
         ('Lenart', 85.20, 78.75),
-        ('RateËe', -65.04, 70.04),
+        ('Rateƒçe', -65.04, 70.04),
         ('Ljutomer', 111.26, 71.82),
-        ('Rogaöka Slatina', 71.00, 42.00),
+        ('Roga≈°ka Slatina', 71.00, 42.00),
         ('Ribnica', 7.10, -10.50),
         ('Dutovlje', -56.80, -6.93),
         ('Lokve', -57.94, 19.32),
         ('Vinica', 43.81, -38.43),
         ('Brtonigla', -71.00, -47.25),
         ('Kanal', -71.00, 26.25),
-        ('»rnomelj', 39.05, -27.93),
+        ('ƒårnomelj', 39.05, -27.93),
         ('Trbovlje', 29.61, 35.07),
         ('Beltinci', 114.81, 80.54),
-        ('Domûale', -2.34, 31.50),
-        ('Hodoö', 120.70, 105.00),
-        ('äkofja Loka', -23.64, 35.07),
-        ('Velike LaöËe', 0.00, 0.00),
+        ('Dom≈æale', -2.34, 31.50),
+        ('Hodo≈°', 120.70, 105.00),
+        ('≈†kofja Loka', -23.64, 35.07),
+        ('Velike La≈°ƒçe', 0.00, 0.00),
         ('Velenje', 33.16, 54.29),
-        ('äoötanj', 29.61, 57.75),
-        ('Laöko', 42.60, 33.29),
+        ('≈†o≈°tanj', 29.61, 57.75),
+        ('La≈°ko', 42.60, 33.29),
         ('Postojna', -29.54, -5.25),
         ('Ilirska Bistrica', -27.19, -27.93),
         ('Radenci', 100.61, 84.00),
-        ('»rna', 15.41, 66.57),
-        ('RadeËe', 39.05, 24.57),
+        ('ƒårna', 15.41, 66.57),
+        ('Radeƒçe', 39.05, 24.57),
         ('Vitanje', 47.36, 57.75),
         ('Bled', -37.84, 56.07),
         ('Tolmin', -63.90, 36.75),
@@ -164,61 +164,61 @@ class TestKraji(unittest.TestCase):
         ('Novo mesto', 37.91, -3.47),
         ('Bovec', -76.89, 52.50),
         ('Nova Gorica', -69.79, 12.29),
-        ('Kröko', 60.35, 14.07),
+        ('Kr≈°ko', 60.35, 14.07),
         ('Cerknica', -18.89, -3.47),
         ('Slovenska Bistrica', 66.31, 57.75),
         ('Anhovo', -72.14, 22.78),
-        ('Ormoû', 107.71, 61.32),
-        ('äkofije', -59.14, -27.93),
-        ('»epovan', -60.35, 22.78),
+        ('Ormo≈æ', 107.71, 61.32),
+        ('≈†kofije', -59.14, -27.93),
+        ('ƒåepovan', -60.35, 22.78),
         ('Murska Sobota', 108.91, 87.57),
         ('Ljubljana', -8.24, 22.78),
         ('Idrija', -43.74, 17.54),
         ('Radlje ob Dravi', 41.46, 82.32),
-        ('éalec', 37.91, 43.79),
+        ('≈Ωalec', 37.91, 43.79),
         ('Mojstrana', -49.70, 64.79),
         ('Log pod Mangartom', -73.34, 59.54),
         ('Podkoren', -62.69, 70.04),
-        ('KoËevje', 16.61, -21.00),
-        ('SoËa', -69.79, 52.50),
-        ('AjdovöËina', -53.25, 5.25),
+        ('Koƒçevje', 16.61, -21.00),
+        ('Soƒça', -69.79, 52.50),
+        ('Ajdov≈°ƒçina', -53.25, 5.25),
         ('Bohinjska Bistrica', -48.49, 47.25),
-        ('TrûiË', -22.44, 56.07),
+        ('Tr≈æiƒç', -22.44, 56.07),
         ('Piran', -75.69, -31.50),
         ('Kranj', -20.09, 43.79),
         ('Kranjska Gora', -60.35, 68.25),
         ('Izola', -68.59, -31.50),
         ('Radovljica', -31.95, 54.29),
         ('Gornji Grad', 13.06, 49.03),
-        ('äentjur', 54.46, 40.32),
+        ('≈†entjur', 54.46, 40.32),
         ('Koper', -63.90, -29.72),
         ('Celje', 45.01, 42.00),
         ('Mislinja', 42.60, 66.57),
         ('Metlika', 48.56, -19.21),
-        ('éaga', -81.65, 49.03),
+        ('≈Ωaga', -81.65, 49.03),
         ('Komen', -63.90, -1.68),
-        ('éuûemberk', 21.30, 0.00),
+        ('≈Ωu≈æemberk', 21.30, 0.00),
         ('Pesnica', 74.55, 80.54),
         ('Vrhnika', -23.64, 14.07),
         ('Dravograd', 28.40, 78.75),
         ('Kamnik', -1.14, 40.32),
         ('Jesenice', -40.19, 64.79),
         ('Kobarid', -74.55, 43.79),
-        ('Portoroû', -73.34, -33.18),
+        ('Portoro≈æ', -73.34, -33.18),
         ('Muta', 37.91, 82.32),
-        ('Seûana', -54.39, -13.96),
+        ('Se≈æana', -54.39, -13.96),
         ('Vipava', -47.29, 1.79),
         ('Maribor', 72.21, 75.28),
         ('Slovenj Gradec', 31.95, 71.82),
         ('Litija', 14.20, 22.78),
         ('Na Logu', -62.69, 57.75),
-        ('Stara Fuûina', -52.04, 47.25),
+        ('Stara Fu≈æina', -52.04, 47.25),
         ('Motovun', -56.80, -52.50),
         ('Pragersko', 73.41, 57.75),
-        ('Most na SoËi', -63.90, 33.29),
+        ('Most na Soƒçi', -63.90, 33.29),
         ('Brestanica', 60.35, 15.75),
         ('Savudrija', -80.44, -34.96),
-        ('Sodraûica', 0.00, -6.93),
+        ('Sodra≈æica', 0.00, -6.93),
     ]
 
     class CountCalls:
@@ -244,35 +244,35 @@ class TestKraji(unittest.TestCase):
 
     def test_1_koordinate(self):
         kraji = [
-            ('Breûice', 68.66, 7.04),
+            ('Bre≈æice', 68.66, 7.04),
             ('Lenart', 85.20, 78.75),
-            ('RateËe', -65.04, 70.04),
+            ('Rateƒçe', -65.04, 70.04),
             ('Ljutomer', 111.26, 71.82)
         ]
 
-        self.assertEqual(koordinate("Breûice", kraji), (68.66, 7.04))
+        self.assertEqual(koordinate("Bre≈æice", kraji), (68.66, 7.04))
         self.assertEqual(koordinate("Lenart", kraji), (85.20, 78.75))
-        self.assertEqual(koordinate("RateËe", kraji), (-65.04, 70.04))
+        self.assertEqual(koordinate("Rateƒçe", kraji), (-65.04, 70.04))
         self.assertEqual(koordinate("Ljutomer", kraji), (111.26, 71.82))
         self.assertIsNone(koordinate("Ljubljana", kraji))
 
-        kraji = [('Breûice', 68.66, 7.04)]
-        self.assertEqual(koordinate("Breûice", kraji), (68.66, 7.04))
+        kraji = [('Bre≈æice', 68.66, 7.04)]
+        self.assertEqual(koordinate("Bre≈æice", kraji), (68.66, 7.04))
         self.assertIsNone(koordinate("Lenart", kraji))
 
         kraji = []
-        self.assertIsNone(koordinate("Breûice", kraji))
+        self.assertIsNone(koordinate("Bre≈æice", kraji))
 
     def test_1_range_len(self):
         class NoGetItem(list):
             def __getitem__(*x):
-                raise IndexError("NauËi se (pravilno) uporabljati zanko for!")
+                raise IndexError("Nauƒçi se (pravilno) uporabljati zanko for!")
 
-        kraji = NoGetItem([('Breûice', 68.66, 7.04), ('Lenart', 85.20, 78.75),
-                           ('RateËe', -65.04, 70.04)])
-        self.assertEqual(koordinate("Breûice", kraji), (68.66, 7.04))
+        kraji = NoGetItem([('Bre≈æice', 68.66, 7.04), ('Lenart', 85.20, 78.75),
+                           ('Rateƒçe', -65.04, 70.04)])
+        self.assertEqual(koordinate("Bre≈æice", kraji), (68.66, 7.04))
         self.assertEqual(koordinate("Lenart", kraji), (85.20, 78.75))
-        self.assertEqual(koordinate("RateËe", kraji), (-65.04, 70.04))
+        self.assertEqual(koordinate("Rateƒçe", kraji), (-65.04, 70.04))
         self.assertIsNone(koordinate("Ljubljana", kraji))
 
     def test_2_razdalja_koordinat(self):
@@ -295,21 +295,21 @@ class TestKraji(unittest.TestCase):
 
     def test_3_razdalja_krajev(self):
         kraji = [
-            ('Breûice', 10, 20),
+            ('Bre≈æice', 10, 20),
             ('Lenart', 13, 24),
-            ('RateËe', 17, 20),
+            ('Rateƒçe', 17, 20),
             ('Ljutomer', 8, 36)
         ]
 
         from math import sqrt
-        self.assertEqual(razdalja("Breûice", "Lenart", kraji), 5)
-        self.assertEqual(razdalja("Lenart", "Breûice", kraji), 5)
-        self.assertEqual(razdalja("Breûice", "RateËe", kraji), 7)
-        self.assertAlmostEqual(razdalja("Lenart", "RateËe", kraji), sqrt(32))
+        self.assertEqual(razdalja("Bre≈æice", "Lenart", kraji), 5)
+        self.assertEqual(razdalja("Lenart", "Bre≈æice", kraji), 5)
+        self.assertEqual(razdalja("Bre≈æice", "Rateƒçe", kraji), 7)
+        self.assertAlmostEqual(razdalja("Lenart", "Rateƒçe", kraji), sqrt(32))
         self.assertEqual(razdalja("Lenart", "Ljutomer", kraji), 13)
 
         koordinate.call_count = razdalja_koordinat.call_count = 0
-        razdalja("Breûice", "Lenart", kraji)
+        razdalja("Bre≈æice", "Lenart", kraji)
         self.assertEqual(
             koordinate.call_count, 2,
             "Funkcija `razdalja` mora dvakrat poklicati `koordinate`")
@@ -320,29 +320,29 @@ class TestKraji(unittest.TestCase):
     def test_4_v_dometu(self):
         kraji = [
             ('Lenart', 13, 24),
-            ('Breûice', 10, 20),  # Lenart <-> Breûice = 5
-            ('RateËe', 17, 20),  # Lenart <-> RateËe = 5.66
+            ('Bre≈æice', 10, 20),  # Lenart <-> Bre≈æice = 5
+            ('Rateƒçe', 17, 20),  # Lenart <-> Rateƒçe = 5.66
             ('Ljutomer', 8, 36)  # Lenart <-> Ljutomer = 13
         ]
-        self.assertEqual(v_dometu("Lenart", 5, kraji), ["Breûice"])
+        self.assertEqual(v_dometu("Lenart", 5, kraji), ["Bre≈æice"])
         self.assertEqual(v_dometu("Lenart", 3, kraji), [])
-        self.assertEqual(set(v_dometu("Lenart", 6, kraji)), {"Breûice", "RateËe"})
+        self.assertEqual(set(v_dometu("Lenart", 6, kraji)), {"Bre≈æice", "Rateƒçe"})
 
         kraji = self.vsi_kraji
-        self.assertEqual(set(v_dometu("Ljubljana", 20, kraji)), {'Vrhnika', 'Domûale', 'Kamnik', 'äkofja Loka'})
+        self.assertEqual(set(v_dometu("Ljubljana", 20, kraji)), {'Vrhnika', 'Dom≈æale', 'Kamnik', '≈†kofja Loka'})
 
     def test_5_najbolj_oddaljeni(self):
         kraji = [
             ('Lenart', 13, 24),
-            ('Breûice', 10, 20),  # Lenart <-> Breûice = 5
-            ('RateËe', 17, 20),  # Lenart <-> RateËe = 5.66
+            ('Bre≈æice', 10, 20),  # Lenart <-> Bre≈æice = 5
+            ('Rateƒçe', 17, 20),  # Lenart <-> Rateƒçe = 5.66
             ('Ljutomer', 8, 36)  # Lenart <-> Ljutomer = 13
         ]
-        self.assertEqual(najbolj_oddaljeni("Lenart", ["Breûice", "RateËe"], kraji), "RateËe")
-        self.assertEqual(najbolj_oddaljeni("Lenart", ["Breûice"], kraji), "Breûice")
+        self.assertEqual(najbolj_oddaljeni("Lenart", ["Bre≈æice", "Rateƒçe"], kraji), "Rateƒçe")
+        self.assertEqual(najbolj_oddaljeni("Lenart", ["Bre≈æice"], kraji), "Bre≈æice")
 
         kraji = self.vsi_kraji
-        self.assertEqual(najbolj_oddaljeni("Ljubljana", ["Domûale", "Kranj", "Maribor", "Vrhnika"], kraji), "Maribor")
+        self.assertEqual(najbolj_oddaljeni("Ljubljana", ["Dom≈æale", "Kranj", "Maribor", "Vrhnika"], kraji), "Maribor")
 
     def test_6_zalijemo(self):
         self.assertEqual(zalijemo("Ljubljana", 30, self.vsi_kraji), "Cerknica")
@@ -359,7 +359,7 @@ class TestKraji(unittest.TestCase):
 
     def test_8_skupno_zalivanje(self):
         self.assertEqual(set(skupno_zalivanje("Bled", "Ljubljana", 30, self.vsi_kraji)),
-                         {"Kranj", "äkofja Loka"})
+                         {"Kranj", "≈†kofja Loka"})
 
 
 if __name__ == "__main__":
