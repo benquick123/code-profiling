@@ -1,0 +1,1 @@
+# Tu pišite svoje funkcije:
