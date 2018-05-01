@@ -125,8 +125,22 @@ Zdaj se vse leksikalne lastnosti shranjujejo v pickle.
 
 <b> UPDATE 30.4.2018 </b>
 
-Doseženi je 91,6% klasifikacijska točnost ob 89,03% večinskem razredu. Dodani so bili leksikalni atributi 
+Dosežena je 91,6% klasifikacijska točnost ob 89,03% večinskem razredu. Dodani so bili leksikalni atributi 
 ter uporabljen batch-2. Nadaljni koraki vključujejo analizo rezultatov ter združevanje rezultatov istih
 avtorjev za dosego boljše klasifikacijske točnosti.
 
-Dejstvo, da so dobljeni rezultati boljši od velikosti večinskega razreda so obetavni.  
+Dejstvo, da so dobljeni rezultati boljši od velikosti večinskega razreda je obetavno. 
+
+<b> UPDATE 1.5.2018 </b> 
+
+Ustvarjena je nova datoteka *analysis.py*, ki zaenkrat poskrbi za osnovno analizo dobljenih rezultatov. 
+Dobljeni rezultati so sedaj na podlagi parametra *class_weight="balanced"* uravnoteženi, kar vzame v 
+zakup manjše število ženskih programerk.
+
+Rezultati, ki jih izpiše *analysis.py* so združeni glede na programerja, kar prinese rahlo izboljšanje:
+- Classification accuracy: 0.946
+- Precision score: 1.0
+- Recall score: 0.581
+
+Nadaljna analiza bo izvedena na nivoju prepričanja (t.j. % dreves, ki glasujejo za posamezen razred)
+v pripadnost določenemu razredu.

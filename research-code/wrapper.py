@@ -1,5 +1,5 @@
 import pickle
-from sklearn.model_selection import cross_val_score, GroupKFold
+from sklearn.model_selection import cross_val_score, GroupKFold, cross_val_predict
 from sklearn.ensemble import RandomForestClassifier
 import numpy as np
 from collections import Counter
@@ -28,14 +28,21 @@ def pickle_load():
 
 
 if __name__ == "__main__":
-    model = RandomForestClassifier(n_estimators=500, max_features=None, n_jobs=3, verbose=5)
+    model = RandomForestClassifier(n_estimators=500, max_features=None, n_jobs=3, verbose=2, class_weight="balanced")
     cv = GroupKFold(n_splits=10)
     X, Y, groups = pickle_load()
 
     print(X.shape)
     print(Counter(Y))
 
-    scores = cross_val_score(estimator=model, X=X, y=Y, cv=cv, groups=groups, verbose=5)
-    print("avg score:", np.mean(scores), "(+/-", np.std(scores), ")")
-    print("majority:", Counter(Y)[0] / len(Y))
+    # scores = cross_val_score(estimator=model, X=X, y=Y, cv=cv, groups=groups, verbose=5)
+    scores = cross_val_predict(estimator=model, X=X, y=Y, cv=cv, groups=groups, verbose=5, method="predict_proba")
+    # scores are now probabilities for each class. i save them for later analysis.
+
+    f = open("../research-code/pickle-data/batch-2-probabilities-500-balanced-10.pickle", "wb")
+    pickle.dump(scores, f)
+    f.close()
+
+    """print("avg score:", np.mean(scores), "(+/-", np.std(scores), ")")
+    print("majority:", Counter(Y)[0] / len(Y))"""
     exit()

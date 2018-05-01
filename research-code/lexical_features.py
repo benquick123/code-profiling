@@ -119,7 +119,7 @@ def nesting_depth(file):
 
 # Branching factor of the tree formed by converting code blocks of files into nodes
 # Wat is dis?
-# Fele: nevermind, sem implementiral v ast_attribute_builder.py
+# Fele: nevermind, sem implementiral v ast_features.py
 
 # avgParams	            The average number of parameters among all functions
 # Tudi tukaj se mi ne zdi smiselno pisat funkcije, glede na nalogo...
