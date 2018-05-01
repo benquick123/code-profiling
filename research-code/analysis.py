@@ -1,6 +1,6 @@
 import pickle
 import numpy as np
-from sklearn.metrics import recall_score, precision_score, accuracy_score
+from sklearn.metrics import recall_score, precision_score, accuracy_score, roc_auc_score
 
 
 def load_pickles():
@@ -49,6 +49,7 @@ def print_results(Y_true, Y_pred, type):
     print("Classification accuracy, ", type, ": ", accuracy_score(Y_true, Y_pred), sep="")
     print("Precision score, ", type, ": ", precision_score(Y_true, Y_pred), sep="")
     print("Recall score, ", type, ": ", recall_score(Y_true, Y_pred), sep="")
+    print("AUC score, ", type, ": ", roc_auc_score(Y_true, Y_pred), sep="")
 
 
 if __name__ == "__main__":
