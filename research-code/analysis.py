@@ -17,10 +17,11 @@ def load_pickles():
     return Y, probabilities.tolist(), groups
 
 
-def calc_Y_pred(probabilities):
+def calc_Y_pred(probabilities, threshold=0.5):
     Y_pred = []
     for p in probabilities:
-        y = 0 if p[0] > p[1] else 1
+        # y = 0 if p[0] * (2-weight) > p[1] * weight else 1
+        y = 1 if p[1] > threshold else 0
         Y_pred.append(y)
     return Y_pred
 
@@ -50,6 +51,15 @@ def print_results(Y_true, Y_pred, type):
     print("Precision score, ", type, ": ", precision_score(Y_true, Y_pred), sep="")
     print("Recall score, ", type, ": ", recall_score(Y_true, Y_pred), sep="")
     print("AUC score, ", type, ": ", roc_auc_score(Y_true, Y_pred), sep="")
+    print()
+
+
+def weight_testing(group_probabilities, Y_group_true, type):
+    print("----------WEIGHT TESTING----------")
+    for threshold in np.arange(0.01, 0.99, 0.02):
+        print("THRESHOLD:", threshold)
+        Y_group_pred = calc_Y_pred(group_probabilities, threshold)
+        print_results(Y_group_true, Y_group_pred, type)
 
 
 if __name__ == "__main__":
@@ -60,5 +70,7 @@ if __name__ == "__main__":
     Y_group_true, group_probabilities = get_cumulative_probabilities(probabilities, groups, Y_true)
     Y_group_pred = calc_Y_pred(group_probabilities)
     print_results(Y_group_true, Y_group_pred, "group")
+
+    weight_testing(group_probabilities, Y_group_true, "group")
 
     exit()

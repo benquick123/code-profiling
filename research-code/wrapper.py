@@ -28,7 +28,8 @@ def pickle_load():
 
 
 if __name__ == "__main__":
-    model = RandomForestClassifier(n_estimators=500, max_features=None, n_jobs=3, verbose=2, class_weight="balanced")
+    weights = "balanced"
+    model = RandomForestClassifier(n_estimators=500, max_features=None, n_jobs=3, verbose=2, class_weight=weights)
     cv = GroupKFold(n_splits=10)
     X, Y, groups = pickle_load()
 
