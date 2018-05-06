@@ -1,6 +1,7 @@
 import pickle
 import numpy as np
 from sklearn.metrics import recall_score, precision_score, accuracy_score, roc_auc_score
+from matplotlib import pyplot as plt
 
 
 def load_pickles():
@@ -52,14 +53,34 @@ def print_results(Y_true, Y_pred, type):
     print("Recall score, ", type, ": ", recall_score(Y_true, Y_pred), sep="")
     print("AUC score, ", type, ": ", roc_auc_score(Y_true, Y_pred), sep="")
     print()
+    return accuracy_score(Y_true, Y_pred), precision_score(Y_true, Y_pred), recall_score(Y_true, Y_pred), roc_auc_score(Y_true, Y_pred)
 
 
-def weight_testing(group_probabilities, Y_group_true, type):
+def weight_testing(group_probabilities, Y_group_true, type, graph=True):
     print("----------WEIGHT TESTING----------")
-    for threshold in np.arange(0.01, 0.99, 0.02):
+    recalls, precisions, CAs, AUCs = [], [], [], []
+    thresholds = list(np.arange(0.01, 1.0, 0.02))
+    for threshold in thresholds:
         print("THRESHOLD:", threshold)
         Y_group_pred = calc_Y_pred(group_probabilities, threshold)
-        print_results(Y_group_true, Y_group_pred, type)
+        CA, precision, recall, AUC = print_results(Y_group_true, Y_group_pred, type)
+        recalls.append(recall)
+        precisions.append(precision)
+        CAs.append(CA)
+        AUCs.append(AUC)
+
+    if graph:
+        plt.plot(thresholds, CAs, label="CA")
+        plt.plot(thresholds, precisions, label="Precision")
+        plt.plot(thresholds, recalls, label="Recall")
+        plt.plot(thresholds, AUCs, label="AUC")
+        plt.legend()
+        plt.xlim(0.01, 0.99)
+        plt.ylim(-0.01)
+        plt.xlabel("Threshold")
+        plt.ylabel("Value")
+        plt.title("Scores at different thresholds")
+        plt.show()
 
 
 if __name__ == "__main__":
