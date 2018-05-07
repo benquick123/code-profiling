@@ -51,7 +51,6 @@ def print_results(Y_true, Y_pred, type):
     print("Classification accuracy, ", type, ": ", accuracy_score(Y_true, Y_pred), sep="")
     print("Precision score, ", type, ": ", precision_score(Y_true, Y_pred), sep="")
     print("Recall score, ", type, ": ", recall_score(Y_true, Y_pred), sep="")
-    print("AUC score, ", type, ": ", roc_auc_score(Y_true, Y_pred), sep="")
     print()
     return accuracy_score(Y_true, Y_pred), precision_score(Y_true, Y_pred), recall_score(Y_true, Y_pred), roc_auc_score(Y_true, Y_pred)
 
@@ -73,7 +72,7 @@ def weight_testing(group_probabilities, Y_group_true, type, graph=True):
         plt.plot(thresholds, CAs, label="CA")
         plt.plot(thresholds, precisions, label="Precision")
         plt.plot(thresholds, recalls, label="Recall")
-        plt.plot(thresholds, AUCs, label="AUC")
+        # plt.plot(thresholds, AUCs, label="AUC")
         plt.legend()
         plt.xlim(0.01, 0.99)
         plt.ylim(-0.01)
@@ -86,6 +85,7 @@ def weight_testing(group_probabilities, Y_group_true, type, graph=True):
 if __name__ == "__main__":
     Y_true, probabilities, groups = load_pickles()
     Y_pred = calc_Y_pred(probabilities)
+    print("AUC score:", roc_auc_score(Y_true, [p0 for p0, p1 in probabilities]))
     print_results(Y_true, Y_pred, "single")
 
     Y_group_true, group_probabilities = get_cumulative_probabilities(probabilities, groups, Y_true)
