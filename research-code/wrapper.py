@@ -32,6 +32,17 @@ if __name__ == "__main__":
     model = RandomForestClassifier(n_estimators=500, max_features=None, n_jobs=3, verbose=2, class_weight=weights)
     cv = GroupKFold(n_splits=10)
     X, Y, groups = pickle_load()
+    # Y = np.random.choice(2, size=len(Y), p=[0.88, 0.12])
+    # pickle.dump(Y, open("../research-code/pickle-data/batch-2-ast-Y-random-class.pickle", "wb"))
+
+    # save X, Y and groups to .csv.
+    X = X.toarray()
+    np.savetxt("X.csv", X, delimiter=",")
+    np.savetxt("Y.csv", Y, delimiter=",")
+    np.savetxt("groups.csv", groups, delimiter=",")
+
+    # exit
+    exit()
 
     print(X.shape)
     print(Counter(Y))

@@ -6,10 +6,10 @@ from matplotlib import pyplot as plt
 
 def load_pickles():
     path = "../research-code/pickle-data/"
-    f = open(path + "batch-2-probabilities-500-balanced-10.pickle", "rb")
+    f = open(path + "batch-2-probabilities-500-balanced-10-random-class.pickle", "rb")
     probabilities = pickle.load(f)
     f.close()
-    f = open(path + "batch-2-ast-Y.pickle", "rb")
+    f = open(path + "batch-2-ast-Y-random-class.pickle", "rb")
     Y = pickle.load(f)
     f.close()
     f = open(path + "batch-2-ast-groups.pickle", "rb")
@@ -52,7 +52,7 @@ def print_results(Y_true, Y_pred, type):
     print("Precision score, ", type, ": ", precision_score(Y_true, Y_pred), sep="")
     print("Recall score, ", type, ": ", recall_score(Y_true, Y_pred), sep="")
     print()
-    return accuracy_score(Y_true, Y_pred), precision_score(Y_true, Y_pred), recall_score(Y_true, Y_pred), roc_auc_score(Y_true, Y_pred)
+    return accuracy_score(Y_true, Y_pred), precision_score(Y_true, Y_pred), recall_score(Y_true, Y_pred)
 
 
 def weight_testing(group_probabilities, Y_group_true, type, graph=True):
@@ -62,11 +62,10 @@ def weight_testing(group_probabilities, Y_group_true, type, graph=True):
     for threshold in thresholds:
         print("THRESHOLD:", threshold)
         Y_group_pred = calc_Y_pred(group_probabilities, threshold)
-        CA, precision, recall, AUC = print_results(Y_group_true, Y_group_pred, type)
+        CA, precision, recall = print_results(Y_group_true, Y_group_pred, type)
         recalls.append(recall)
         precisions.append(precision)
         CAs.append(CA)
-        AUCs.append(AUC)
 
     if graph:
         plt.plot(thresholds, CAs, label="CA")
@@ -85,11 +84,12 @@ def weight_testing(group_probabilities, Y_group_true, type, graph=True):
 if __name__ == "__main__":
     Y_true, probabilities, groups = load_pickles()
     Y_pred = calc_Y_pred(probabilities)
-    print("AUC score:", roc_auc_score(Y_true, [p0 for p0, p1 in probabilities]))
+    print("AUC score:", roc_auc_score(Y_true, [p1 for p0, p1 in probabilities]))
     print_results(Y_true, Y_pred, "single")
 
     Y_group_true, group_probabilities = get_cumulative_probabilities(probabilities, groups, Y_true)
     Y_group_pred = calc_Y_pred(group_probabilities)
+    print("AUC score:", roc_auc_score(Y_group_true, [p1 for p0, p1 in group_probabilities]))
     print_results(Y_group_true, Y_group_pred, "group")
 
     weight_testing(group_probabilities, Y_group_true, "group")
