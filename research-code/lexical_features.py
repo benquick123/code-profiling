@@ -56,7 +56,7 @@ def num_keyword(file):
         for word in line.split():
             if word in keywords:
                 keywords[word] += 1
-    return keywords
+    return keywords, list(keywords.keys())
 
 # ln(numTernary/length)	Log of the number of ternary operators divided by file length in characters
 # Ne rabimo
@@ -91,7 +91,7 @@ def num_comments(file):
 
 # Number of unique keywords used
 def num_keywords(file):
-    keywords = num_keyword(file)
+    keywords = num_keyword(file)[0]
     return sum((bool(keywords[key]) for key in keywords))
 
 # Number of functions
@@ -103,7 +103,7 @@ def num_functions(file):
 # Tega v Pythonu ne rabimo?
 
 # Highest degree to which control statements and loops are nested within each other
-#Na to rešitev nisem najbolj ponosen, ampak pomoje naredi svoje
+# Na to rešitev nisem najbolj ponosen, ampak pomoje naredi svoje
 def nesting_depth(file):
     max_depth = 0
     for line in open(file, encoding="utf-8"):
@@ -142,10 +142,13 @@ def sd_line_lenght(file):
 
 # Zapis podatkov
 
-def pickle_save(X):
+def pickle_save(X, labels):
     path = "../research-code/pickle-data/"
     f = open(path + "batch-2-lexical-X.pickle", "wb")
     pickle.dump(X, f)
+    f.close()
+    f = open(path + "batch-2-lexical-labels.pickle", "wb")
+    pickle.dump(labels, f)
     f.close()
 
 path = '../code/batch-2/vse-naloge-brez-testov/'
@@ -158,6 +161,7 @@ for filename in os.listdir(path):
         for word in re.split('\W+', line):
             all_unigrams[word] = 0
 
+k_labels = []
 for filename in os.listdir(path):
 
     file = path + filename
@@ -170,7 +174,7 @@ for filename in os.listdir(path):
     # v izi bom rewriteal, da vidim, kaj dobim jaz.
     unigrams = dict(word_unigram_tf(file, all_unigrams))
     # unigrams = word_unigram_tf_old(file)
-    keyword = num_keyword(file)
+    keyword, k_labels = num_keyword(file)
 
     # Logs
     ternaries = log(num_ternary(file) / length) if num_ternary(file) > 0 else 0
@@ -191,7 +195,7 @@ for filename in os.listdir(path):
                   [unigrams[key] for key in unigrams]))"""
     attrs.append((filename,
                   [ternaries, tokens, comments, keywords, functions, nestingdepth, avglinelength, sdlinelength] +
-                  [log(keyword[key] / length) if keyword[key] > 0 else 0 for key in keyword],
+                  [log(keyword[key] / length) if keyword[key] > 0 else 0 for key in k_labels],
                   unigrams))
 
 
@@ -199,18 +203,28 @@ unigrams_keys = set()
 
 for file, attributes, unigrams in attrs:
     unigrams_keys = unigrams_keys.union(unigrams.keys())
-unigrams_keys = {unigram: i for unigram, i in zip(unigrams_keys, range(len(unigrams_keys)))}
+
+labels = ["lexical_ternaries", "lexical_tokens", "lexical_comments", "lexical_keywords", "lexical_functions", "lexical_nesting_dep", "lexical_avg_line_len", "lexical_sd_line_len"]
+labels += ["lexical_keyword: " + k for k in k_labels]
+
+unigrams_keys = list(unigrams_keys)
+unigrams_indexes = {unigram: i for unigram, i in zip(unigrams_keys, range(len(unigrams_keys)))}
+
+labels += ["lexical_unigram: " + u for u in unigrams_keys]
 
 attrs = sorted(attrs, key=lambda x: x[0])
 X = None
 for filename, attributes, unigrams in attrs:
     unigrams_new = np.zeros(len(unigrams_keys))
     for unigram, num in unigrams.items():
-        unigrams_new[unigrams_keys[unigram]] = num
+        unigrams_new[unigrams_indexes[unigram]] = num
     attributes = attributes + unigrams_new.tolist()
     if X is None:
         X = sparse.csr_matrix(attributes)
     else:
         X = sparse.vstack([X, attributes])
 
-pickle_save(X)
+print(X.shape)
+print(len(labels))
+
+pickle_save(X, labels)

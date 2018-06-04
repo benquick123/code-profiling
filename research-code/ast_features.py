@@ -30,6 +30,7 @@ class ASTListener (ast.NodeVisitor):
         self.num_literals = 0
 
         self.ast_node_bigrams_counts = dict()
+        self.ast_node_bigrams_labels = []
 
         self.avg_branhing_factor = []
 
@@ -37,12 +38,18 @@ class ASTListener (ast.NodeVisitor):
         self.std_num_params = []
 
         self.ast_node_types_counts = dict()
+        self.ast_node_labels = []
         self.ast_node_types_tfidf = dict()
+        self.ast_node_tfidf_labels = []
         self.ast_node_type_avg_dep = dict()
+        self.ast_node_avg_dep_labels = []
 
         self.code_in_ast_leaves_terms_counts = dict()
+        self.code_in_ast_leaves_labels = []
         self.code_in_ast_leaves_terms_tfidf = dict()
+        self.code_in_ast_leaves_tfidf_labels = []
         self.code_in_ast_leaves_avg_dep = dict()
+        self.code_in_ast_leaves_avg_dep_labels = []
 
     def visit(self, node):
         node.level = self.curr_level
@@ -150,7 +157,7 @@ def file_length(file):
     return sum((len(line)) for line in open(file, encoding="utf-8"))
 
 
-def pickle_save(X, Y, groups):
+def pickle_save(X, Y, groups, labels):
     path = "../research-code/pickle-data/"
     f = open(path + "batch-2-ast-X.pickle", "wb")
     pickle.dump(X, f)
@@ -160,6 +167,9 @@ def pickle_save(X, Y, groups):
     f.close()
     f = open(path + "batch-2-ast-groups.pickle", "wb")
     pickle.dump(groups, f)
+    f.close()
+    f = open(path + "batch-2-ast-labels.pickle", "wb")
+    pickle.dump(labels, f)
     f.close()
 
 
@@ -178,6 +188,9 @@ for filename in os.listdir("../code/batch-2/vse-naloge-brez-testov"):
     attrs.append((filename, code_attrs))
 
 attrs = sorted(attrs, key=lambda x: x[0])
+node_bigrams_keys = list(node_bigrams_keys)
+node_types_keys = list(node_types_keys)
+leaf_terms_keys = list(leaf_terms_keys)
 
 Y = []
 groups = []
@@ -185,18 +198,33 @@ for filename, _ in attrs:
     Y.append(0 if filename.split("-")[1] == "M" else 1)
     groups.append(int(filename.split("-")[-1].split(".")[0]))
 
+labels = ["ast_node_max_depth", "ast_node_avg_branching_factor"]
+
 node_bigrams_labels = {k: v for k, v in zip(node_bigrams_keys, list(range(len(node_bigrams_keys))))}
 node_bigrams_matrix = create_matrix(attrs, node_bigrams_labels, 2)
+labels += ["ast_node_bigrams: " + l for l in node_bigrams_keys]
 
 node_types_labels = {k: v for k, v in zip(node_types_keys, list(range(len(node_types_keys))))}
 node_types_matrix = create_matrix(attrs, node_types_labels, 3)
+labels += ["ast_node_type: " + t for t in node_types_keys]
+
 node_types_tfidf_matrix = TfidfTransformer().fit_transform(node_types_matrix)
+labels += ["ast_node_type_tfidf: " + t for t in node_types_keys]
+
 node_avg_dep_matrix = create_matrix(attrs, node_types_labels, 4)
+labels += ["ast_node_avg_depth: " + t for t in node_types_keys]
 
 leaf_terms_labels = {k: v for k, v in zip(leaf_terms_keys, list(range(len(leaf_terms_keys))))}
 leaf_terms_matrix = create_matrix(attrs, leaf_terms_labels, 5)
+labels += ["ast_leaf_term: " + l for l in leaf_terms_keys]
+
 leaf_terms_tfidf_matrix = TfidfTransformer().fit_transform(leaf_terms_matrix)
+labels += ["ast_leaf_term_tfidf: " + l for l in leaf_terms_keys]
+
 leaf_avg_dep_matrix = create_matrix(attrs, leaf_terms_labels, 6)
+labels += ["ast_leaf_avg_depth: " + l for l in leaf_terms_keys]
+
+labels += ["ast_num_literals", "ast_avg_params", "ast_std_num_params"]
 
 max_depth = np.zeros((len(attrs), 1))
 avg_branching_factor = np.zeros((len(attrs), 1))
@@ -216,8 +244,9 @@ avg_params = sparse.csr_matrix(avg_params)
 std_num_params = sparse.csr_matrix(std_num_params)
 
 X = sparse.hstack([max_depth, avg_branching_factor, node_bigrams_matrix, node_types_matrix, node_types_tfidf_matrix, node_avg_dep_matrix, leaf_terms_matrix, leaf_terms_tfidf_matrix, leaf_avg_dep_matrix, num_literals, avg_params, std_num_params])
+print(len(labels))
 print(X.shape)
 
 # only call once
-pickle_save(X, Y, groups)
+pickle_save(X, Y, groups, labels)
 

@@ -4,15 +4,19 @@ from scipy import sparse
 import pickle
 
 
-def pickle_save(X):
+def pickle_save(X, labels):
     path = "../research-code/pickle-data/"
     f = open(path + "batch-2-layout-X.pickle", "wb")
     pickle.dump(X, f)
+    f.close()
+    f = open(path + "batch-2-layout-labels.pickle", "wb")
+    pickle.dump(labels, f)
     f.close()
 
 
 path = '../code/batch-2/vse-naloge-brez-testov/'
 attrs = []
+labels = []
 
 for filename in os.listdir(path):
     f = open(path + filename, encoding="utf-8")
@@ -33,7 +37,9 @@ for filename in os.listdir(path):
     # print(length, num_tabs, num_spaces, num_empty_lines, num_new_lines, white_space_ratio, tabs_lead_lines)
     attrs.append((filename, [length, num_tabs, num_spaces, num_empty_lines, num_new_lines, white_space_ratio, tabs_lead_lines]))
 
+labels = ["layout_length", "layout_num_tabs", "layout_num_spaces", "layout_num_empty_lines", "layout_num_new_lines", "layout_white_space_ratio", "layout_labs_lead_lines"]
 attrs = sorted(attrs, key=lambda x: x[0])
+
 X = None
 for filename, attributes in attrs:
     if X is None:
@@ -41,4 +47,4 @@ for filename, attributes in attrs:
     else:
         X = sparse.vstack([X, attributes])
 
-pickle_save(X)
+pickle_save(X, labels)
