@@ -1,4 +1,6 @@
-# code-profiling
+# Code profiling
+
+### Text, that a random reader probably won't find interesting.
 
 -> <b>Python 3.6.3+</b>
 
