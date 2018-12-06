@@ -1,6 +1,14 @@
 # Code profiling
 
-### Text, that a random reader probably won't find interesting.
+This is a small project, which was worked on in 2nd semester of Cognitive Science programme. It builds upon an idea that code differs between individuals (btw, to a degeree which enables identification of authors) and tries to explain part of that variance by distinguishing the gender of a programmer. The dataset used is Python code of 1st semester computer science students, with predominantly male samples.
+
+The results using our method showed no difference in code between genders.
+
+## Languages and libraries
+
+Python was used throughout the project, with libraries like numpy and scikit-learn. Module AST was used for abstract sytactic trees.
+
+### Text, that a random reader probably won't find interesting:
 
 -> <b>Python 3.6.3+</b>
 
