@@ -1,6 +1,6 @@
 # Code profiling
 
-This is a small project, which was worked on in 2nd semester of Cognitive Science programme. It builds upon an idea that code differs between individuals (btw, to a degeree which enables identification of authors) and tries to explain part of that variance by distinguishing the gender of a programmer. The dataset used is Python code of 1st semester computer science students, with predominantly male samples.
+This is a small project, which was worked on in 2nd semester of cognitive science programme. It builds upon an idea that code differs between individuals (btw, to a degeree which enables identification of authors) and tries to explain part of that variance by distinguishing the gender of a programmer. The dataset used is Python code of 1st semester computer science students, with predominantly male samples.
 
 The results using our method showed no difference in code between genders.
 
