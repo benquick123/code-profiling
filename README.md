@@ -8,7 +8,7 @@ The results using our method showed no difference in code between genders.
 
 Python was used throughout the project, with libraries like numpy and scikit-learn. Module AST was used for abstract sytactic trees.
 
-### Text, that a random reader probably won't find interesting:
+## Text, that a random reader probably won't find interesting:
 
 -> <b>Python 3.6.3+</b>
 
